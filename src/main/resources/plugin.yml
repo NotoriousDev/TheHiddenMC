@@ -1,0 +1,5 @@
+name: TheHiddenMC
+main: com.notoriousdev.thehiddenmc.TheHiddenMC
+version: "${project.version}"
+authors: [NotoriousDev]
+website: http://www.notoriousdev.com
