@@ -5,10 +5,23 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public class TheHiddenConfig
 {
-    private static TheHiddenMC thehiddenmc;
-    private static FileConfiguration config;
-    private static boolean usingtagapi = thehiddenmc.getConfig().getBoolean("settings.useTagAPI");
 
+    private static TheHiddenMC plugin;
+
+    private static FileConfiguration config;
+    private static boolean usingtagapi;
+
+    public TheHiddenConfig()
+    {
+        plugin = TheHiddenMC.instance;
+        config = plugin.getConfig();
+
+        loadConfig();
+    }
+    private void loadConfig()
+    {
+        this.usingtagapi = config.getBoolean("settings.useTagAPI");
+    }
 
     public boolean useTagAPI()
     {

@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class TheHiddenMC extends JavaPlugin
 {
-    private static TheHiddenMC instance;
+    public static TheHiddenMC instance;
     private static TheHiddenConfig config;
     private static final Logger log = Bukkit.getServer().getLogger();
     private static final PluginManager pm = Bukkit.getPluginManager();
@@ -19,6 +19,7 @@ public class TheHiddenMC extends JavaPlugin
     {
         instance = this;
         saveDefaultConfig();
+        config = new TheHiddenConfig();
         log.info("Successfully enabled!");
         if (config.useTagAPI())
         {
