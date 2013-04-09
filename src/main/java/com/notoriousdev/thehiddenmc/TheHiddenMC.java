@@ -22,6 +22,23 @@ public class TheHiddenMC extends JavaPlugin
         saveDefaultConfig();
         config = new TheHiddenConfig();
         registerListeners();
+        checkForDependencies();
+        log.info("Successfully enabled!");
+    }
+
+    @Override
+    public void onDisable()
+    {
+
+    }
+
+    private void registerListeners()
+    {
+        pm.registerEvents(new PlayerListener(), this);
+    }
+
+    private void checkForDependencies()
+    {
         if (config.isTagAPIEnabled())
         {
             if (!pm.isPluginEnabled("TagAPI"))
@@ -40,16 +57,16 @@ public class TheHiddenMC extends JavaPlugin
             log.info("You have chosen not to use TagAPI.");
             log.info("While TheHiddenMC will work fine without it, it is recommended to get the most out of the plugin.");
         }
-        log.info("Successfully enabled!");
-    }
 
-    @Override
-    public void onDisable()
-    {
-    }
-
-    public void registerListeners()
-    {
-        pm.registerEvents(new PlayerListener(), this);
+        if (!pm.isPluginEnabled("VanishNoPacket"))
+        {
+            log.info("VanishNoPacket is REQUIRED for TheHiddenMC to run but I couldn't find it.");
+            log.info("Please install it and then restart your server.");
+            pm.disablePlugin(this);
+        }
+        else
+        {
+            log.info("VanishNoPacket found!");
+        }
     }
 }
