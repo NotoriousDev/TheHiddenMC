@@ -1,7 +1,7 @@
 package com.notoriousdev.thehiddenmc;
 
 import com.notoriousdev.thehiddenmc.config.TheHiddenConfig;
-import com.notoriousdev.thehiddenmc.listeners.PlayerListener;
+import com.notoriousdev.thehiddenmc.listeners.TheHiddenPlayerListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginManager;
@@ -34,7 +34,7 @@ public class TheHiddenMC extends JavaPlugin
 
     private void registerListeners()
     {
-        pm.registerEvents(new PlayerListener(), this);
+        pm.registerEvents(new TheHiddenPlayerListener(), this);
     }
 
     private void checkForDependencies()
