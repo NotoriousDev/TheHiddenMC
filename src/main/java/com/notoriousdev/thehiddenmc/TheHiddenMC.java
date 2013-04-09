@@ -16,6 +16,12 @@ public class TheHiddenMC extends JavaPlugin
     private static final PluginManager pm = Bukkit.getPluginManager();
 
     @Override
+    public void onDisable()
+    {
+
+    }
+
+    @Override
     public void onEnable()
     {
         instance = this;
@@ -24,12 +30,6 @@ public class TheHiddenMC extends JavaPlugin
         registerListeners();
         checkForDependencies();
         log.info("Successfully enabled!");
-    }
-
-    @Override
-    public void onDisable()
-    {
-
     }
 
     private void registerListeners()
