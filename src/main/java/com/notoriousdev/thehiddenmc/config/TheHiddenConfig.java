@@ -9,7 +9,8 @@ public class TheHiddenConfig
     private static TheHiddenMC plugin;
 
     private static FileConfiguration config;
-    private static boolean usingtagapi;
+    @Getter
+    private static boolean tagAPIEnabled;
 
     public TheHiddenConfig()
     {
@@ -20,11 +21,6 @@ public class TheHiddenConfig
     }
     private void loadConfig()
     {
-        this.usingtagapi = config.getBoolean("settings.useTagAPI");
-    }
-
-    public boolean useTagAPI()
-    {
-        return usingtagapi;
+        this.tagAPIEnabled = config.getBoolean("settings.useTagAPI");
     }
 }
