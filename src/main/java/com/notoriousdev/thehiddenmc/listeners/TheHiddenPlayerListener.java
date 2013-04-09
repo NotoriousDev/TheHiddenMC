@@ -1,6 +1,7 @@
 package com.notoriousdev.thehiddenmc.listeners;
 
 
+import com.notoriousdev.thehiddenmc.TheHiddenMC;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -8,6 +9,8 @@ import org.bukkit.event.player.*;
 
 public class TheHiddenPlayerListener implements Listener
 {
+    private static TheHiddenMC plugin;
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event)
     {

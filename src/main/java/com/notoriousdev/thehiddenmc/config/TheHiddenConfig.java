@@ -7,17 +7,14 @@ import org.bukkit.configuration.file.FileConfiguration;
 public class TheHiddenConfig
 {
 
-    private static TheHiddenMC plugin;
+    private static TheHiddenMC plugin = TheHiddenMC.instance;
 
-    private static FileConfiguration config;
+    private static FileConfiguration config = plugin.getConfig();
     @Getter
     private static boolean tagAPIEnabled;
 
     public TheHiddenConfig()
     {
-        plugin = TheHiddenMC.instance;
-        config = plugin.getConfig();
-
         loadConfig();
     }
     private void loadConfig()
