@@ -1,6 +1,7 @@
 package com.notoriousdev.thehiddenmc;
 
 import com.notoriousdev.thehiddenmc.config.TheHiddenConfig;
+import com.notoriousdev.thehiddenmc.listeners.PlayerListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginManager;
@@ -20,8 +21,8 @@ public class TheHiddenMC extends JavaPlugin
         instance = this;
         saveDefaultConfig();
         config = new TheHiddenConfig();
-        log.info("Successfully enabled!");
-        if (config.useTagAPI())
+        registerListeners();
+        if (config.isTagAPIEnabled())
         {
             if (!pm.isPluginEnabled("TagAPI"))
             {
@@ -39,13 +40,16 @@ public class TheHiddenMC extends JavaPlugin
             log.info("You have chosen not to use TagAPI.");
             log.info("While TheHiddenMC will work fine without it, it is recommended to get the most out of the plugin.");
         }
-
+        log.info("Successfully enabled!");
     }
 
     @Override
     public void onDisable()
     {
-        log.info("Disabling...");
-        log.info("Disabled sucessfully!");
+    }
+
+    public void registerListeners()
+    {
+        pm.registerEvents(new PlayerListener(), this);
     }
 }

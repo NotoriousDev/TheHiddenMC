@@ -1,6 +1,7 @@
 package com.notoriousdev.thehiddenmc.config;
 
 import com.notoriousdev.thehiddenmc.TheHiddenMC;
+import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class TheHiddenConfig
