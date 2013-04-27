@@ -30,8 +30,7 @@ public class HiddenSignHandler implements Listener
         {
             player.sendMessage("This is not a Hidden sign!");
             return;
-        }
-        else
+        } else
         {
             player.sendMessage("This is a Hidden sign!");
             return;
@@ -50,13 +49,11 @@ public class HiddenSignHandler implements Listener
             {
                 player.sendMessage(ChatColor.RED + "You do not have permission to create TheHidden signs!");
                 event.setCancelled(true);
-            }
-            else
+            } else
             {
                 player.sendMessage(ChatColor.GREEN + "TheHidden sign successfully created!");
             }
-        }
-        else
+        } else
         {
             return;
         }
@@ -71,25 +68,24 @@ public class HiddenSignHandler implements Listener
                 || block.getType().equals(Material.WALL_SIGN)
                 || block.getType().equals(Material.SIGN_POST))
         {
-            if(config.isSignProtectionEnabled())
-            {
-                Player player = event.getPlayer();
-                BlockState state = block.getState();
-                org.bukkit.block.Sign sign = ((org.bukkit.block.Sign) state);
-                String[] signtext = sign.getLines();
+            Player player = event.getPlayer();
+            BlockState state = block.getState();
+            org.bukkit.block.Sign sign = ((org.bukkit.block.Sign) state);
+            String[] signtext = sign.getLines();
 
-                if (signtext[0].equalsIgnoreCase(config.getHiddenSignText()) && (!player.hasPermission("hidden.signs.destroy")))
+            if (config.isSignProtectionEnabled() && (signtext[0].equalsIgnoreCase(config.getHiddenSignText())))
+            {
+                if (player.hasPermission("hidden.signs.destroy"))
+                {
+                    player.sendMessage(ChatColor.GREEN + "TheHidden sign succesfully removed!");
+                } else
                 {
                     player.sendMessage(ChatColor.RED + "You do not have permission to break HiddenSigns!");
                     event.setCancelled(true);
                     sign.update();
                 }
-                else
-                {
-                    player.sendMessage(ChatColor.GREEN + "TheHidden sign succesfully removed!");
-                }
-            }
-            else
+
+            } else
             {
                 return;
             }
