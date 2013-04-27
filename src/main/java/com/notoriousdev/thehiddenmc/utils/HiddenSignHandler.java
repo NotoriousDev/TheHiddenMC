@@ -17,8 +17,15 @@ public class HiddenSignHandler implements Listener
 {
     private static TheHiddenConfig config;
 
+    public HiddenSignHandler()
+    {
+    }
+
     public void runSignClickHandler(Player player, String[] signtext)
     {
+        player.sendMessage(ChatColor.RED + "SIGN HANDLER");
+        player.sendMessage("Signtext: " + signtext[0]);
+
         if (!player.hasPermission("hidden.signs.join") || (!isHiddenSign(signtext[0])))
         {
             player.sendMessage("This is not a Hidden sign!");
@@ -58,15 +65,16 @@ public class HiddenSignHandler implements Listener
     @EventHandler
     public void onSignDestroy(BlockBreakEvent event)
     {
+        Block block = event.getBlock();
 
-        if (event.getBlock().getType() == Material.SIGN)
+        if (block.getType().equals(Material.SIGN)
+                || block.getType().equals(Material.WALL_SIGN)
+                || block.getType().equals(Material.SIGN_POST))
         {
             if(config.isSignProtectionEnabled())
             {
                 Player player = event.getPlayer();
-                Block block = event.getBlock();
                 BlockState state = block.getState();
-
                 org.bukkit.block.Sign sign = ((org.bukkit.block.Sign) state);
                 String[] signtext = sign.getLines();
 

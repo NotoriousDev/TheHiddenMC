@@ -16,8 +16,9 @@ import org.bukkit.event.player.*;
 
 public class TheHiddenPlayerListener implements Listener
 {
-    private static TheHiddenMC plugin;
-    private static HiddenSignHandler signHandler;
+    private static TheHiddenMC plugin = TheHiddenMC.instance;
+    private static HiddenSignHandler signHandler = new HiddenSignHandler();
+
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event)
@@ -37,12 +38,6 @@ public class TheHiddenPlayerListener implements Listener
         Block block = event.getClickedBlock();
         Player player = event.getPlayer();
 
-        player.sendMessage("Variables set.");
-
-        player.sendMessage("Action: " + event.getAction().toString());
-        player.sendMessage("BlockType: " + block.getType().toString());
-        player.sendMessage("BlockState: " + block.getState().toString());
-
         if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
                 && (block.getType().equals(Material.SIGN)
                 || block.getType().equals(Material.WALL_SIGN)
@@ -50,9 +45,7 @@ public class TheHiddenPlayerListener implements Listener
         {
             BlockState state = block.getState();
             Sign sign = ((Sign) state);
-            player.sendMessage("Sign: " + sign.toString());
             String[] signtext = sign.getLines();
-            player.sendMessage("SignText: " + signtext.toString());
 
             signHandler.runSignClickHandler(event.getPlayer(), signtext);
         }
