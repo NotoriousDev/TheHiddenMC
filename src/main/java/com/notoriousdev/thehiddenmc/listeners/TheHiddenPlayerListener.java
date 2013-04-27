@@ -2,14 +2,22 @@ package com.notoriousdev.thehiddenmc.listeners;
 
 
 import com.notoriousdev.thehiddenmc.TheHiddenMC;
+import com.notoriousdev.thehiddenmc.utils.HiddenSignHandler;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Sign;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
 
 public class TheHiddenPlayerListener implements Listener
 {
     private static TheHiddenMC plugin;
+    private static HiddenSignHandler signHandler;
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event)
@@ -26,7 +34,28 @@ public class TheHiddenPlayerListener implements Listener
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event)
     {
+        Block block = event.getClickedBlock();
+        Player player = event.getPlayer();
 
+        player.sendMessage("Variables set.");
+
+        player.sendMessage("Action: " + event.getAction().toString());
+        player.sendMessage("BlockType: " + block.getType().toString());
+        player.sendMessage("BlockState: " + block.getState().toString());
+
+        if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
+                && (block.getType().equals(Material.SIGN)
+                || block.getType().equals(Material.WALL_SIGN)
+                || block.getType().equals(Material.SIGN_POST)))
+        {
+            BlockState state = block.getState();
+            Sign sign = ((Sign) state);
+            player.sendMessage("Sign: " + sign.toString());
+            String[] signtext = sign.getLines();
+            player.sendMessage("SignText: " + signtext.toString());
+
+            signHandler.runSignClickHandler(event.getPlayer(), signtext);
+        }
     }
 
     @EventHandler

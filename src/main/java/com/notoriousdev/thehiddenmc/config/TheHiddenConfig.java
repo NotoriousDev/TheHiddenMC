@@ -12,6 +12,10 @@ public class TheHiddenConfig
     private static FileConfiguration config = plugin.getConfig();
     @Getter
     private static boolean tagAPIEnabled;
+    @Getter
+    private static boolean signProtectionEnabled;
+    @Getter
+    private static String hiddenSignText;
 
     public TheHiddenConfig()
     {
@@ -20,5 +24,7 @@ public class TheHiddenConfig
     private void loadConfig()
     {
         this.tagAPIEnabled = config.getBoolean("settings.useTagAPI");
+        this.hiddenSignText = config.getString("signs.hidden-sign-text");
+        this.signProtectionEnabled = config.getBoolean("settings.protect-signs");
     }
 }

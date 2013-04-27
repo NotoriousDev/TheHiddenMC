@@ -2,6 +2,7 @@ package com.notoriousdev.thehiddenmc;
 
 import com.notoriousdev.thehiddenmc.config.TheHiddenConfig;
 import com.notoriousdev.thehiddenmc.listeners.TheHiddenPlayerListener;
+import com.notoriousdev.thehiddenmc.utils.HiddenSignHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginManager;
@@ -35,6 +36,7 @@ public class TheHiddenMC extends JavaPlugin
     private void registerListeners()
     {
         pm.registerEvents(new TheHiddenPlayerListener(), this);
+        pm.registerEvents(new HiddenSignHandler(), this);
     }
 
     private void checkForDependencies()
@@ -43,8 +45,8 @@ public class TheHiddenMC extends JavaPlugin
         {
             if (!pm.isPluginEnabled("TagAPI"))
             {
-                log.info("You have chosen to use TagAPI but I couldn't find it. Are you sure it's installed?");
-                log.info("I'm going to disable myself now. Please fix any errors mentioned above.");
+                log.warning("You have chosen to use TagAPI but I couldn't find it. Are you sure it's installed?");
+                log.warning("I'm going to disable myself now. Please fix any errors mentioned above.");
                 pm.disablePlugin(this);
             }
             else
@@ -56,17 +58,6 @@ public class TheHiddenMC extends JavaPlugin
         {
             log.info("You have chosen not to use TagAPI.");
             log.info("While TheHiddenMC will work fine without it, it is recommended to get the most out of the plugin.");
-        }
-
-        if (!pm.isPluginEnabled("VanishNoPacket"))
-        {
-            log.info("VanishNoPacket is REQUIRED for TheHiddenMC to run but I couldn't find it.");
-            log.info("Please install it and then restart your server.");
-            pm.disablePlugin(this);
-        }
-        else
-        {
-            log.info("VanishNoPacket found!");
         }
     }
 }

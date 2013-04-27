@@ -1,4 +1,7 @@
 # TheHiddenMC Configuration
 
 settings:
-    useTagAPI: false
+    use-TagAPI: false
+    protect-signs: true
+signs:
+    hidden-sign-text: '[HIDDEN]'
