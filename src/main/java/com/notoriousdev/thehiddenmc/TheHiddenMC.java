@@ -4,6 +4,7 @@ import com.notoriousdev.thehiddenmc.config.TheHiddenConfig;
 import com.notoriousdev.thehiddenmc.listeners.TheHiddenPlayerListener;
 import com.notoriousdev.thehiddenmc.utils.HiddenSignHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginManager;
 
@@ -31,6 +32,7 @@ public class TheHiddenMC extends JavaPlugin
         config = new TheHiddenConfig();
         registerListeners();
         checkForDependencies();
+        checkForWorld();
         getLogger().info("Successfully enabled!");
     }
 
@@ -61,4 +63,12 @@ public class TheHiddenMC extends JavaPlugin
             getLogger().info("While TheHiddenMC will work fine without it, it is recommended to get the most out of the plugin.");
         }
     }
-}
+    private void checkForWorld()
+    {
+            if (!getServer().getWorlds().contains(config.getEnabledWorld()))
+            {
+                getLogger().warning("World '" + config.getEnabledWorld() + "' does not exist. Please correct this error before loading the plugin.");
+                pm.disablePlugin(this);
+            }
+        }
+    }

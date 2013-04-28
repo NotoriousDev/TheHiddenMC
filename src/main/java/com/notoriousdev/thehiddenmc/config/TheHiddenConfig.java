@@ -5,6 +5,8 @@ import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.List;
+
 public class TheHiddenConfig
 {
 
@@ -29,7 +31,8 @@ public class TheHiddenConfig
     private static String messageSignError;
     @Getter
     private static String messageNoPermission;
-
+    @Getter
+    private static String enabledWorld;
 
     public TheHiddenConfig()
     {
@@ -46,5 +49,6 @@ public class TheHiddenConfig
         this.messageSignJoin = config.getString("messages.sign-join");
         this.messageSignError = config.getString("messages.sign-error");
         this.messageNoPermission = config.getString("messages.no-permission");
+        this.enabledWorld = config.getString("settings.enabled-world");
     }
 }

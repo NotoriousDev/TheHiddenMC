@@ -3,6 +3,9 @@
 settings:
     use-TagAPI: false
     protect-signs: true
+    enabled-world: 'world'
+signs:
+    hidden-sign-text: '&9[HIDDEN]'
 messages:
     prefix: '&d[Hidden] &8|| '
     sign-error: '&cCould not create a TheHiddenMC sign!'
@@ -10,5 +13,4 @@ messages:
     sign-destroy: '&aTheHidden sign successfully destroyed!'
     sign-join: '&aThis is a TheHiddenMC sign!'
     no-permission: '&cYou do not have permission to do that!'
-signs:
-    hidden-sign-text: '[HIDDEN]'
+

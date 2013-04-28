@@ -3,6 +3,7 @@ package com.notoriousdev.thehiddenmc.listeners;
 
 import com.notoriousdev.thehiddenmc.TheHiddenMC;
 import com.notoriousdev.thehiddenmc.utils.HiddenSignHandler;
+import com.notoriousdev.thehiddenmc.utils.WorldManager;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -18,7 +19,7 @@ public class TheHiddenPlayerListener implements Listener
 {
     private static TheHiddenMC plugin = TheHiddenMC.instance;
     private static HiddenSignHandler signHandler = new HiddenSignHandler();
-
+    private static WorldManager worldmanager = new WorldManager();
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event)
@@ -37,6 +38,11 @@ public class TheHiddenPlayerListener implements Listener
     {
         Block block = event.getClickedBlock();
         Player player = event.getPlayer();
+
+        if (!worldmanager.isHiddenWorld(player.getWorld()))
+        {
+            return;
+        }
 
         if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
                 && (block.getType().equals(Material.SIGN)

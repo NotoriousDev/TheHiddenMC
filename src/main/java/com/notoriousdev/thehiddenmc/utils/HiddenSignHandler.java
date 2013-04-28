@@ -14,7 +14,7 @@ import org.bukkit.event.block.SignChangeEvent;
 public class HiddenSignHandler implements Listener
 {
     private static TheHiddenConfig config = new TheHiddenConfig();
-    private Locale locale = new Locale();
+    private static Locale locale = new Locale();
 
     public HiddenSignHandler()
     {
@@ -22,13 +22,20 @@ public class HiddenSignHandler implements Listener
 
     public void runSignClickHandler(Player player, String[] signtext)
     {
-        if (!player.hasPermission("hidden.signs.join") || (!isHiddenSign(signtext[0])))
+        if (isHiddenSign(signtext[0]))
         {
-            locale.sendSignError(player);
-            return;
-        } else
+            if (!player.hasPermission("hidden.signs.join"))
+            {
+                locale.sendSignError(player);
+                return;
+            } else
+            {
+                locale.sendSignJoin(player);
+                return;
+            }
+        }
+        else
         {
-            locale.sendSignJoin(player);
             return;
         }
     }
