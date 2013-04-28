@@ -13,13 +13,12 @@ public class TheHiddenMC extends JavaPlugin
 {
     public static TheHiddenMC instance;
     private static TheHiddenConfig config;
-    private static final Logger log = Bukkit.getServer().getLogger();
     private static final PluginManager pm = Bukkit.getPluginManager();
 
     @Override
     public void onDisable()
     {
-
+        //TODO brian is a faget
     }
 
     @Override
@@ -30,7 +29,7 @@ public class TheHiddenMC extends JavaPlugin
         config = new TheHiddenConfig();
         registerListeners();
         checkForDependencies();
-        log.info("Successfully enabled!");
+        getLogger().info("Successfully enabled!");
     }
 
     private void registerListeners()
@@ -41,23 +40,23 @@ public class TheHiddenMC extends JavaPlugin
 
     private void checkForDependencies()
     {
-        if (config.isTagAPIEnabled())
+        if (config.isTagApiEnabled())
         {
             if (!pm.isPluginEnabled("TagAPI"))
             {
-                log.warning("You have chosen to use TagAPI but I couldn't find it. Are you sure it's installed?");
-                log.warning("I'm going to disable myself now. Please fix any errors mentioned above.");
+                getLogger().warning("You have chosen to use TagAPI but I couldn't find it. Are you sure it's installed?");
+                getLogger().warning("I'm going to disable myself now. Please fix any errors mentioned above.");
                 pm.disablePlugin(this);
             }
             else
             {
-                log.info("TagAPI found and enabled in config. Using it for Hidden nametags.");
+                getLogger().info("TagAPI found and enabled in config. Using it for Hidden nametags.");
             }
         }
         else
         {
-            log.info("You have chosen not to use TagAPI.");
-            log.info("While TheHiddenMC will work fine without it, it is recommended to get the most out of the plugin.");
+            getLogger().info("You have chosen not to use TagAPI.");
+            getLogger().info("While TheHiddenMC will work fine without it, it is recommended to get the most out of the plugin.");
         }
     }
 }
