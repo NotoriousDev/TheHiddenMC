@@ -40,11 +40,11 @@ public class TheHiddenConfig
         this.tagApiEnabled = config.getBoolean("settings.useTagAPI");
         this.hiddenSignText = config.getString("signs.hidden-sign-text");
         this.signProtectionEnabled = config.getBoolean("settings.protect-signs");
-        this.messagePrefix = config.getString("settings.messages.prefix");
-        this.messageSignCreate = config.getString("settings.messages.sign-create");
-        this.messageSignDestroy = config.getString("settings.messages.sign-destroy");
-        this.messageSignJoin = config.getString("settings.messages.sign-join");
-        this.messageSignError = config.getString("settings.messages.sign-error");
-        this.messageNoPermission = config.getString("settings.messages.no-permission");
+        this.messagePrefix = config.getString("messages.prefix");
+        this.messageSignCreate = config.getString("messages.sign-create");
+        this.messageSignDestroy = config.getString("messages.sign-destroy");
+        this.messageSignJoin = config.getString("messages.sign-join");
+        this.messageSignError = config.getString("messages.sign-error");
+        this.messageNoPermission = config.getString("messages.no-permission");
     }
 }
