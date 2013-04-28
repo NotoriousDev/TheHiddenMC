@@ -18,7 +18,9 @@ public class TheHiddenMC extends JavaPlugin
     @Override
     public void onDisable()
     {
-        //TODO brian is a faget
+        instance = null;
+
+        //TODO brian is still a faget
     }
 
     @Override
