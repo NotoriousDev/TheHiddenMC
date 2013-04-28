@@ -13,13 +13,12 @@ import org.bukkit.event.block.SignChangeEvent;
 
 public class HiddenSignHandler implements Listener
 {
-    private static TheHiddenConfig config;
+    private static TheHiddenConfig config = new TheHiddenConfig();
+    private Locale locale = new Locale();
 
     public HiddenSignHandler()
     {
     }
-
-    private Locale locale = new Locale();
 
     public void runSignClickHandler(Player player, String[] signtext)
     {

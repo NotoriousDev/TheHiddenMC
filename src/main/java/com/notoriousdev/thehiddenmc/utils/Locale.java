@@ -8,11 +8,12 @@ import org.bukkit.entity.Player;
 public class Locale
 {
     private static TheHiddenMC plugin = TheHiddenMC.instance;
-    private static TheHiddenConfig config;
+    private static TheHiddenConfig config = new TheHiddenConfig();
 
     public Locale()
     {
     }
+
     private final String prefix = config.getMessagePrefix();
 
     public void sendSignCreate(Player player)
