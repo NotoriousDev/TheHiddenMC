@@ -25,11 +25,11 @@ public class HiddenSignHandler implements Listener
     {
         if (!player.hasPermission("hidden.signs.join") || (!isHiddenSign(signtext[0])))
         {
-            locale.sendSignJoin(player);
+            locale.sendSignError(player);
             return;
         } else
         {
-            locale.sendSignError(player);
+            locale.sendSignJoin(player);
             return;
         }
     }
