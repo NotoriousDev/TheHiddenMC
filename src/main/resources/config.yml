@@ -5,7 +5,7 @@ settings:
     protect-signs: true
     enabled-world: 'world'
 signs:
-    hidden-sign-text: '&9[HIDDEN]'
+    hidden-sign-text: '[HIDDEN]'
 messages:
     prefix: '&d[Hidden] &8|| '
     sign-error: '&cCould not create a TheHiddenMC sign!'
