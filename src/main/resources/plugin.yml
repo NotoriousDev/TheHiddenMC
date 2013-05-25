@@ -4,3 +4,11 @@ version: "${project.version}"
 authors: [NotoriousDev]
 website: http://www.notoriousdev.com
 softdepend: ['TagAPI']
+
+commands:
+  hidden:
+     usage: Use /hidden reload
+     permission: hiddenmc.admin
+     permission-message: You don't have permission to do that.
+     description: Main HiddenMC command
+     aliases: [h]

@@ -1,5 +1,6 @@
 package com.notoriousdev.thehiddenmc.utils;
 
+import com.notoriousdev.thehiddenmc.TheHiddenMC;
 import com.notoriousdev.thehiddenmc.config.TheHiddenConfig;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -13,11 +14,17 @@ import org.bukkit.event.block.SignChangeEvent;
 
 public class HiddenSignHandler implements Listener
 {
-    private static TheHiddenConfig config = new TheHiddenConfig();
-    private static Locale locale = new Locale();
+    private TheHiddenMC plugin;
+    private TheHiddenConfig config;
+    private Locale locale;
+    private WorldManager worldManager;
 
-    public HiddenSignHandler()
+    public HiddenSignHandler(TheHiddenMC plugin)
     {
+        this.plugin = plugin;
+        config = plugin.getHiddenConfig();
+        locale = plugin.getLocale();
+        worldManager = plugin.getWorldManager();
     }
 
     public void runSignClickHandler(Player player, String[] signtext)
@@ -28,15 +35,12 @@ public class HiddenSignHandler implements Listener
             {
                 locale.sendSignError(player);
                 return;
-            } else
+            }
+            else
             {
                 locale.sendSignJoin(player);
                 return;
             }
-        }
-        else
-        {
-            return;
         }
     }
 
@@ -46,19 +50,21 @@ public class HiddenSignHandler implements Listener
         Player player = event.getPlayer();
         String[] signtext = event.getLines();
 
-        if (signtext[0].equalsIgnoreCase(config.getHiddenSignText()))
+        if (signtext[0].equalsIgnoreCase(config.hiddenSignText))
         {
             if (!player.hasPermission("hidden.signs.create"))
             {
                 locale.sendNoPermission(player);
                 event.setCancelled(true);
-            } else
-            {
-                locale.sendSignCreate(player);
+                return;
             }
-        } else
-        {
-            return;
+            if (!worldManager.isHiddenWorld(player.getWorld()))
+            {
+                locale.sendNotWorld(player);
+                event.setCancelled(true);
+                return;
+            }
+            locale.sendSignCreate(player);
         }
     }
 
@@ -76,28 +82,25 @@ public class HiddenSignHandler implements Listener
             org.bukkit.block.Sign sign = ((org.bukkit.block.Sign) state);
             String[] signtext = sign.getLines();
 
-            if (config.isSignProtectionEnabled() && (signtext[0].equalsIgnoreCase(config.getHiddenSignText())))
+            if (config.signProtectionEnabled && (signtext[0].equalsIgnoreCase(config.hiddenSignText)))
             {
                 if (player.hasPermission("hidden.signs.destroy"))
                 {
                     locale.sendSignDestroy(player);
-                } else
+                }
+                else
                 {
                     locale.sendNoPermission(player);
                     event.setCancelled(true);
                     sign.update();
                 }
-
-            } else
-            {
-                return;
             }
         }
     }
 
     private boolean isHiddenSign(String signtext)
     {
-        return signtext.equalsIgnoreCase(config.getHiddenSignText());
+        return signtext.equalsIgnoreCase(config.hiddenSignText);
     }
 }
 

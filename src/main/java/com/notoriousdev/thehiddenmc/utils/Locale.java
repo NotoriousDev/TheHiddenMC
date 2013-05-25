@@ -7,33 +7,43 @@ import org.bukkit.entity.Player;
 
 public class Locale
 {
-    private static TheHiddenMC plugin = TheHiddenMC.instance;
-    private static TheHiddenConfig config = new TheHiddenConfig();
+    private TheHiddenMC plugin;
+    private TheHiddenConfig config;
+    private String prefix;
 
-    public Locale()
+    public Locale(TheHiddenMC plugin)
     {
+        this.plugin = plugin;
+        config = plugin.getHiddenConfig();
+        prefix = config.messagePrefix;
     }
-
-    private final String prefix = config.getMessagePrefix();
 
     public void sendSignCreate(Player player)
     {
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + config.getMessageSignCreate()));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + config.messageSignCreate));
     }
     public void sendSignDestroy(Player player)
     {
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + config.getMessageSignDestroy()));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + config.messageSignDestroy));
     }
     public void sendSignError(Player player)
     {
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + config.getMessageSignError()));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + config.messageSignError));
     }
     public void sendSignJoin(Player player)
     {
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + config.getMessageSignJoin()));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + config.messageSignJoin));
     }
     public void sendNoPermission(Player player)
     {
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + config.getMessageNoPermission()));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + config.messageNoPermission));
+    }
+    public void sendNotWorld(Player player)
+    {
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + config.messageNotWorld));
+    }
+    public void sendCommandReload(Player player)
+    {
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + config.messageCommandReload));
     }
 }

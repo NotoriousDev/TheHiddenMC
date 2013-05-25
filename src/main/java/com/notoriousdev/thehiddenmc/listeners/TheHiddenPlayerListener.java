@@ -17,9 +17,16 @@ import org.bukkit.event.player.*;
 
 public class TheHiddenPlayerListener implements Listener
 {
-    private static TheHiddenMC plugin = TheHiddenMC.instance;
-    private static HiddenSignHandler signHandler = new HiddenSignHandler();
-    private static WorldManager worldmanager = new WorldManager();
+    private TheHiddenMC plugin;
+    private HiddenSignHandler signHandler;
+    private WorldManager worldmanager;
+
+    public TheHiddenPlayerListener(TheHiddenMC plugin)
+    {
+        this.plugin = plugin;
+        signHandler = plugin.getSignHandler();
+        worldmanager = plugin.getWorldManager();
+    }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event)

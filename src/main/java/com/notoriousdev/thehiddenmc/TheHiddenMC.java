@@ -1,8 +1,11 @@
 package com.notoriousdev.thehiddenmc;
 
+import com.notoriousdev.thehiddenmc.commands.HiddenCommands;
 import com.notoriousdev.thehiddenmc.config.TheHiddenConfig;
 import com.notoriousdev.thehiddenmc.listeners.TheHiddenPlayerListener;
 import com.notoriousdev.thehiddenmc.utils.HiddenSignHandler;
+import com.notoriousdev.thehiddenmc.utils.Locale;
+import com.notoriousdev.thehiddenmc.utils.WorldManager;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,16 +15,21 @@ import java.util.logging.Logger;
 
 public class TheHiddenMC extends JavaPlugin
 {
-    public static TheHiddenMC instance;
-    private static TheHiddenConfig config;
-    private static final PluginManager pm = Bukkit.getPluginManager();
+    public TheHiddenMC instance;
+    private TheHiddenConfig config;
+    private Locale locale;
+    private PluginManager pm = Bukkit.getPluginManager();
+    private HiddenSignHandler signHandler;
+    private WorldManager worldManager;
 
     @Override
     public void onDisable()
     {
         instance = null;
-
-        //TODO brian is still a faget
+        config = null;
+        locale = null;
+        signHandler= null;
+        worldManager = null;
     }
 
     @Override
@@ -29,22 +37,29 @@ public class TheHiddenMC extends JavaPlugin
     {
         instance = this;
         saveDefaultConfig();
-        config = new TheHiddenConfig();
+        config = new TheHiddenConfig(this);
+        locale = new Locale(this);
+        signHandler = new HiddenSignHandler(this);
+        worldManager = new WorldManager(this);
         registerListeners();
+        setExecutors();
         checkForDependencies();
-        checkForWorld();
         getLogger().info("Successfully enabled!");
     }
 
     private void registerListeners()
     {
-        pm.registerEvents(new TheHiddenPlayerListener(), this);
-        pm.registerEvents(new HiddenSignHandler(), this);
+        pm.registerEvents(new TheHiddenPlayerListener(this), this);
+        pm.registerEvents(new HiddenSignHandler(this), this);
+    }
+    private void setExecutors()
+    {
+        getCommand("hidden").setExecutor(new HiddenCommands(this));
     }
 
     private void checkForDependencies()
     {
-        if (config.isTagApiEnabled())
+        if (config.tagApiEnabled)
         {
             if (!pm.isPluginEnabled("TagAPI"))
             {
@@ -63,12 +78,25 @@ public class TheHiddenMC extends JavaPlugin
             getLogger().info("While TheHiddenMC will work fine without it, it is recommended to get the most out of the plugin.");
         }
     }
-    private void checkForWorld()
+
+    public TheHiddenMC getInstance()
     {
-            if (!getServer().getWorlds().contains(config.getEnabledWorld()))
-            {
-                getLogger().warning("World '" + config.getEnabledWorld() + "' does not exist. Please correct this error before loading the plugin.");
-                pm.disablePlugin(this);
-            }
-        }
+        return instance;
     }
+    public TheHiddenConfig getHiddenConfig()
+    {
+        return config;
+    }
+    public Locale getLocale()
+    {
+        return locale;
+    }
+    public HiddenSignHandler getSignHandler()
+    {
+        return signHandler;
+    }
+    public WorldManager getWorldManager()
+    {
+        return worldManager;
+    }
+}

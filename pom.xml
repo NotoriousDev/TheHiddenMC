@@ -32,12 +32,6 @@
             <version>2.2</version>
             <type>jar</type>
         </dependency>
-        <dependency> 
-            <groupId>org.projectlombok</groupId> 
-            <artifactId>lombok</artifactId> 
-            <version>0.11.6</version> 
-            <scope>provided</scope> 
-        </dependency>
     </dependencies>
 
 </project>

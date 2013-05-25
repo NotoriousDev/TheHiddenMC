@@ -1,54 +1,55 @@
 package com.notoriousdev.thehiddenmc.config;
 
 import com.notoriousdev.thehiddenmc.TheHiddenMC;
-import lombok.Getter;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
-
-import java.util.List;
 
 public class TheHiddenConfig
 {
 
-    private static TheHiddenMC plugin = TheHiddenMC.instance;
+    private FileConfiguration config;
+    private TheHiddenMC plugin;
 
-    private static FileConfiguration config = plugin.getConfig();
-    @Getter
-    private static boolean tagApiEnabled;
-    @Getter
-    private static boolean signProtectionEnabled;
-    @Getter
-    private static String hiddenSignText;
-    @Getter
-    private static String messagePrefix;
-    @Getter
-    private static String messageSignCreate;
-    @Getter
-    private static String messageSignDestroy;
-    @Getter
-    private static String messageSignJoin;
-    @Getter
-    private static String messageSignError;
-    @Getter
-    private static String messageNoPermission;
-    @Getter
-    private static String enabledWorld;
+    public boolean tagApiEnabled;
+    public boolean signProtectionEnabled;
+    public String hiddenSignText;
+    public String messagePrefix;
+    public String messageSignCreate;
+    public String messageSignDestroy;
+    public String messageSignJoin;
+    public String messageSignError;
+    public String messageNoPermission;
+    public String messageNotWorld;
+    public String enabledWorld;
+    public String messageCommandReload;
 
-    public TheHiddenConfig()
+    public TheHiddenConfig(TheHiddenMC plugin)
     {
+        this.plugin = plugin;
+        config = plugin.getConfig();
         loadConfig();
     }
+
+    public void reload()
+    {
+        plugin.reloadConfig();
+        config = plugin.getConfig();
+        loadConfig();
+    }
+
     private void loadConfig()
     {
-        this.tagApiEnabled = config.getBoolean("settings.useTagAPI");
-        this.hiddenSignText = config.getString("signs.hidden-sign-text");
-        this.signProtectionEnabled = config.getBoolean("settings.protect-signs");
-        this.messagePrefix = config.getString("messages.prefix");
-        this.messageSignCreate = config.getString("messages.sign-create");
-        this.messageSignDestroy = config.getString("messages.sign-destroy");
-        this.messageSignJoin = config.getString("messages.sign-join");
-        this.messageSignError = config.getString("messages.sign-error");
-        this.messageNoPermission = config.getString("messages.no-permission");
-        this.enabledWorld = config.getString("settings.enabled-world");
+        tagApiEnabled = config.getBoolean("settings.useTagAPI");
+        hiddenSignText = config.getString("signs.hidden-sign-text");
+        signProtectionEnabled = config.getBoolean("settings.protect-signs");
+        messagePrefix = config.getString("messages.prefix");
+        messageSignCreate = config.getString("messages.sign-create");
+        messageSignDestroy = config.getString("messages.sign-destroy");
+        messageSignJoin = config.getString("messages.sign-join");
+        messageSignError = config.getString("messages.sign-error");
+        messageNoPermission = config.getString("messages.no-permission");
+        messageNotWorld = config.getString("messages.not-hidden-world");
+        enabledWorld = config.getString("settings.enabled-world");
+        messageCommandReload = config.getString("messages.commands.reload");
+
     }
 }
